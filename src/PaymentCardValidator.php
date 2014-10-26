@@ -2,15 +2,37 @@
 
 class PaymentCardValidator {
 
+    private $number;
+
+    public function __construct($number)
+    {
+        $this->number = $number;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNumber()
+    {
+        return $this->number;
+    }
+
+    /**
+     * @param mixed $number
+     */
+    public function setNumber($number)
+    {
+        $this->number = $number;
+    }
+
     /**
      * Validates a number against the Luhn check algorithm
-     * @param string $number the number to check against
      * @return bool
      */
-    public function luhn($number)
+    public function isValid()
     {
         // Reverse the number
-        $number = strrev($number);
+        $number = strrev($this->number);
 
         // Split up the number into chunks
         $number = str_split($number);
@@ -19,7 +41,7 @@ class PaymentCardValidator {
         $total = 0;
 
         // Starting from the second to last number double the number and then for every other number do the same
-        for ($i = 1; $i < count($number); $i+=2)
+        for ($i = 1; $i < count($number); $i += 2)
         {
             $doubled_value = $number[$i] * 2;
 
@@ -30,8 +52,7 @@ class PaymentCardValidator {
 
                 $total += $number_parts[0];
                 $total += $number_parts[1];
-            }
-            else
+            } else
             {
                 $total += $doubled_value;
             }
