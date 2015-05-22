@@ -52,7 +52,8 @@ class PaymentCardValidator {
 
                 $total += $number_parts[0];
                 $total += $number_parts[1];
-            } else
+            } 
+            else
             {
                 $total += $doubled_value;
             }
